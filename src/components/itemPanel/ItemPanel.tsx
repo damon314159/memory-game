@@ -1,6 +1,7 @@
 import type { MouseEvent, KeyboardEvent } from 'react'
 import type ClickableItem from '../../types/ClickableItem'
 import ItemCard from '../itemCard/ItemCard'
+import './ItemPanel.css'
 
 interface Props {
   items: ClickableItem[]

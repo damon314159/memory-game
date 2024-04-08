@@ -1,0 +1,4 @@
+.item-panel {
+  display: flex;
+  flex-wrap: wrap;
+}

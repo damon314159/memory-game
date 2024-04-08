@@ -1,3 +1,5 @@
+import './Scoreboard.css'
+
 interface Props {
   score: number
   highScore: number
