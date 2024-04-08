@@ -3,7 +3,8 @@ import {
   type SetStateAction,
   type MouseEvent,
   type KeyboardEvent,
-  useState
+  useState,
+  useEffect
 } from 'react'
 import { v4 as uuid } from 'uuid'
 import './App.css'
@@ -23,10 +24,16 @@ function clickHandlerFactoryFactory(
   // This can be passed down with props
   return (ID: string): ((e: MouseEvent | KeyboardEvent) => void) =>
     (e: MouseEvent | KeyboardEvent): void => {
-      if ('key' in e && e.key !== 'Enter') {
+      if ('button' in e && (e.nativeEvent as PointerEvent).pointerType === '') {
         return
       }
-      // TODO Guard clause for no focus on KB event
+      if (
+        'key' in e &&
+        (!['Enter', ' '].includes(e.key) || e.target !== document.activeElement)
+      ) {
+        return
+      }
+      console.log(e, e.target)
       if (
         items.find((item: ClickableItem): boolean => item.ID === ID)?.wasClicked
       ) {
@@ -55,9 +62,10 @@ function clickHandlerFactoryFactory(
 }
 
 function App(): JSX.Element {
+  const cardNum = 10
   const [items, setItems] = useState(
     Array.from(
-      { length: 10 },
+      { length: cardNum },
       (): ClickableItem => ({
         ID: uuid(),
         imageURL: '',
@@ -65,9 +73,37 @@ function App(): JSX.Element {
       })
     )
   )
-  // TODO Use Effect to fetch and insert URLS to state
   const [score, setScore] = useState(0)
   const [highScore, setHighScore] = useState(0)
+
+  useEffect((): void => {
+    // eslint-disable-next-line no-void
+    void (async (): Promise<void> => {
+      const cats: Record<string, string>[] = await fetch(
+        `https://api.thecatapi.com/v1/images/search?size=med&limit=${cardNum.toString()}&mime_types=jpg`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+            // 'x-api-key': 'Your-key'
+          }
+        }
+      )
+        .then((res): Promise<Record<string, string>[]> => res.json())
+        .catch((err: unknown): Record<string, string>[] => {
+          console.error(err)
+          return []
+        })
+      setItems(
+        items.map(
+          (item: ClickableItem, i: number): ClickableItem => ({
+            ...item,
+            imageURL: cats[i]?.url ?? ''
+          })
+        )
+      )
+    })()
+  }, [])
 
   return (
     <>

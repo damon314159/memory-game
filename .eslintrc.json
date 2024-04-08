@@ -20,6 +20,7 @@
     "project": ["./tsconfig.json", "./tsconfig.node.json"]
   },
   "rules": {
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
     "no-underscore-dangle": "off",
     "arrow-body-style": "error",
     "prefer-arrow-callback": "error",
