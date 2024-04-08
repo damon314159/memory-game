@@ -16,6 +16,6 @@ const root: HTMLElement =
 // Trigger the App initial render
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <App />
+    <App numItems={10} />
   </React.StrictMode>
 )

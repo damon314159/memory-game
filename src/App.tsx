@@ -12,6 +12,10 @@ import type ClickableItem from './types/ClickableItem'
 import ItemPanel from './components/itemPanel/ItemPanel'
 import Scoreboard from './components/scoreboard/Scoreboard'
 
+interface Props {
+  numItems: number
+}
+
 function clickHandlerFactoryFactory(
   items: ClickableItem[],
   setItems: Dispatch<SetStateAction<ClickableItem[]>>,
@@ -61,11 +65,10 @@ function clickHandlerFactoryFactory(
     }
 }
 
-function App(): JSX.Element {
-  const cardNum = 10
+function App({ numItems }: Props): JSX.Element {
   const [items, setItems] = useState(
     Array.from(
-      { length: cardNum },
+      { length: numItems },
       (): ClickableItem => ({
         ID: uuid(),
         imageURL: '',
@@ -80,12 +83,12 @@ function App(): JSX.Element {
     // eslint-disable-next-line no-void
     void (async (): Promise<void> => {
       const cats: Record<string, string>[] = await fetch(
-        `https://api.thecatapi.com/v1/images/search?size=med&limit=${cardNum.toString()}&mime_types=jpg`,
+        `https://api.thecatapi.com/v1/images/search?size=med&limit=${numItems.toString()}&mime_types=jpg`,
         {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json'
-            // 'x-api-key': 'Your-key'
+            'Content-Type': 'application/json',
+            'x-api-key': import.meta.env.VITE_API_KEY as string
           }
         }
       )

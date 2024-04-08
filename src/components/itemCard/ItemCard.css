@@ -1,6 +1,7 @@
 .card {
   padding: 0;
   aspect-ratio: 1;
+  width: calc((100% - ((var(--numCols) - 1) * var(--gap))) / var(--numCols));
 }
 
 .card-button {
