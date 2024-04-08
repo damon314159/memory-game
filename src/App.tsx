@@ -33,7 +33,8 @@ function clickHandlerFactoryFactory(
       ) {
         return
       }
-      console.log(e, e.target)
+      // Stop selected item retaining its focus when they are shuffled
+      ;(document.querySelector('#item-panel') as HTMLElement).focus()
       if (
         items.find((item: ClickableItem): boolean => item.ID === ID)?.wasClicked
       ) {
@@ -45,7 +46,6 @@ function clickHandlerFactoryFactory(
             })
           )
         )
-        // TODO Shuffle array
         setHighScore(Math.max(score, highScore))
         setScore(0)
         return
@@ -56,7 +56,6 @@ function clickHandlerFactoryFactory(
             item.ID === ID ? { ...item, wasClicked: true } : item
         )
       )
-      // TODO Shuffle array
       setScore(score + 1)
     }
 }

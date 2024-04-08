@@ -1,4 +1,8 @@
-.item-panel {
+#item-panel {
   display: flex;
   flex-wrap: wrap;
+
+  &:focus-visible {
+    outline: none;
+  }
 }
