@@ -106,7 +106,7 @@ function App({ numItems }: Props): JSX.Element {
         )
       )
     })()
-  }, [])
+  }, [numItems])
 
   return (
     <>
