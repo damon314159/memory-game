@@ -1,11 +1,19 @@
+.card {
+  padding: 0;
+  aspect-ratio: 1;
+}
+
 .card-button {
   padding: 4px;
+  border: none;
+  height: 100%;
+  width: 100%;
 }
 
 .card-image {
   display: block;
-  height: 200px;
-  width: 200px;
   object-fit: cover;
   border-radius: 8px;
+  height: 100%;
+  width: 100%;
 }

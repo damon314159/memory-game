@@ -35,6 +35,7 @@ function clickHandlerFactoryFactory(
       }
       // Stop selected item retaining its focus when they are shuffled
       ;(document.querySelector('#item-panel') as HTMLElement).focus()
+      window.scrollTo(0, 0)
       if (
         items.find((item: ClickableItem): boolean => item.ID === ID)?.wasClicked
       ) {

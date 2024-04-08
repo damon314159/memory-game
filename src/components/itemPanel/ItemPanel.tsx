@@ -11,7 +11,7 @@ interface Props {
 
 function ItemPanel({ items, clickHandlerFactory }: Props): JSX.Element {
   return (
-    <div id="item-panel" className="card" tabIndex={-1}>
+    <div id="item-panel" tabIndex={-1}>
       {shuffleArray(
         items.map(
           (item: ClickableItem): JSX.Element => (

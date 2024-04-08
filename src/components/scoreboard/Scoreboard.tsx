@@ -8,8 +8,8 @@ interface Props {
 function Scoreboard({ score, highScore }: Props): JSX.Element {
   return (
     <>
-      <div>Current score: {score}</div>
-      <div>High score: {highScore}</div>
+      <div className="score">Current score: {score}</div>
+      <div className="score">High score: {highScore}</div>
     </>
   )
 }
